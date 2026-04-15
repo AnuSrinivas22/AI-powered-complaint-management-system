@@ -1,10 +1,10 @@
 from flask import Flask, render_template
+import os   # ✅ move this to top (clean practice)
 
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'your-secret-key-here'
     
-    # Register blueprints directly to avoid circular imports
     from routes.complaints import complaints_bp
     from routes.departments import departments_bp
     from routes.dashboard import dashboard_bp
@@ -23,4 +23,4 @@ def create_app():
 
 if __name__ == '__main__':
     app = create_app()
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
